@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
-import br.com.spring.redis.collection.Produto;
+import br.com.spring.redis.entity.Produto;
 import br.com.spring.redis.service.ProdutoService;
 
 @EnableCaching

@@ -12,7 +12,7 @@
 	<artifactId>redis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>redis</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Aplicação Spring integrada com o Redis</description>
 	<url/>
 	<licenses>
 		<license/>

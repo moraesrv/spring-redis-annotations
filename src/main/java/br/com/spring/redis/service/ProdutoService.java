@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.spring.redis.collection.Produto;
+import br.com.spring.redis.entity.Produto;
 import br.com.spring.redis.repository.ProdutoRepository;
 
 @Service

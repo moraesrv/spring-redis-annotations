@@ -10,13 +10,14 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
-import br.com.spring.redis.collection.Produto;
+import br.com.spring.redis.entity.Produto;
 
 @Repository
 public class ProdutoRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProdutoRepository.class);
 
+    // Representa os dados já cadastrados no repositório
     private List<Produto> produtos = new ArrayList<>();
 
     public ProdutoRepository() {
@@ -28,19 +29,18 @@ public class ProdutoRepository {
     }
 
     /**
-     * Método utilizado para simular a latência de uma consulta ao banco de dados
+     * Método utilizado para simular a latência de uma consulta ao repositório
      */
     private void latencia() {
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     /**
-     * Método responsável por localizar um produto dentro da lista
+     * Método responsável por localizar um produto dentro do repositório
     */
     private Produto getProduto(String id) {
         return this.produtos.stream()
@@ -50,7 +50,7 @@ public class ProdutoRepository {
     }
 
     /**
-     * Método utilizado para adicionar um produto na lista
+     * Método utilizado para adicionar um produto no repositório
      */
     public Produto create(Produto produto) {
         LOGGER.info(String.format("Inserindo o produto de id [%s] no banco de dados", produto.getId()));
@@ -60,10 +60,10 @@ public class ProdutoRepository {
     }
 
     /**
-     * O método anotado com @Cacheable pesquisa o produto no cache, caso exista retorna o produto, senão
+     * Método responsável por pesquisar o produto no cache, caso exista retorna o produto, senão
      * pesquisa o produto no repositório e adiciona ao cache
      * @param id identificação do produto
-     * @return informações do produto
+     * @return informações do produto pesquisado
      */
     @Cacheable("produtos")
     public Produto findById(String id) {
@@ -73,10 +73,10 @@ public class ProdutoRepository {
     }
 
     /**
-     * O método anotado com @CachePut pesquisa o produto no repositório e atualiza o cache
+     * Método responsável por pesquisar o produto no repositório e atualizá-lo no repositório e cache
      * @param id identificação do produto
      * @param produto dados do produto a serem atualizados
-     * @return informações do produto
+     * @return informações atualizadas do produto
      */
     @CachePut(value = "produtos", key = "#id")
     public Produto update(String id, Produto produto) {
@@ -95,9 +95,9 @@ public class ProdutoRepository {
     }
 
     /**
-     * O método anotado com @CacheEvict é utilizado para remover um item do cache
+     * Método responsável por remover o registro do repositório e do cache
      * @param id identificação do produto
-     * @return informações do produto
+     * @return informações do produto removido
      */
     @CacheEvict("produtos")
     public Produto removeById(String id) {
