@@ -3,13 +3,11 @@ package br.com.spring.redis;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
 import br.com.spring.redis.entity.Produto;
 import br.com.spring.redis.service.ProdutoService;
 
-@EnableCaching
 @SpringBootApplication
 public class RedisApplication {
 

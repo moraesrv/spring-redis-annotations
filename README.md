@@ -1,5 +1,9 @@
-# SPRING COM SUPORTE A CACHE (REDIS) 
-Essa aplicação consiste em utilizar o serviço de cache do Redis para armazenar em memória os produtos consultados.
+# SPRING CACHE COM REDIS
+Essa aplicação consiste em utilizar o serviço de cache do Spring integrado com o Redis.
+
+Caso você deseje trabalhar com o Redis utilizando Jedis ou a interface CrudRepository, veja os projetos abaixo:
+- [Redis via Jedis](https://github.com/moraesrv/spring-redis-jedis)
+- [Redis via CrudRepository](https://github.com/moraesrv/spring-redis-crud-repository)
 
 ## PRÉ-REQUISITOS
 Aplicações que devem estar instaladas em sua máquina:
@@ -8,33 +12,42 @@ Aplicações que devem estar instaladas em sua máquina:
 - IDE com suporte a Java de sua preferência
 
 ## SPRING
-Para usar o serviço de cache no Spring você deve utilizar:
+Nessa sessão serão descritas as anotações, configurações e dependências que você irá utilizar para a implementação do cache no Spring.
 
 **Anotações**
+
+Abaixo serão listadas as anotações necessárias para se trabalhar com cache no Spring:
 - **@EnableCaching**: habilita o serviço de cache na aplicação.
 - **@Cacheable**: executa o método caso o registro não esteja no cache e o adiciona no cache, caso contrário retorna o valor que está no cache sem a necessidade de executarPossui alta disponibilidade o método.
 - **@CachePut**: executa o método e atualiza o cache.
 - **@CacheEvict**: executa o método e remove o registro do cache.
 
-**Dependências**
-- **spring-boot-starter-cache**: habilita o suporte ao cache na sua aplicação Spring.
-- **spring-boot-starter-data-redis**: utilizada para integrar o Redis à sua aplicação Spring.
+**Configuração**
 
-**Configuração do projeto**
-No arquivo application.properties devemos parametrizar o serviço de cache da aplicação.
+Para configurar o Redis no Spring será criada um classe de configuração do Redis chamada RedisConfig. Essa classe será utilizada para habilitar o cache na aplicação e para que os dados sejam salvos no formato JSON.
 
-Especifica onde o cache será armazenado:
+No arquivo application.properties devemos parametrizar que:
+- O cache será salvo no Redis
 ```
 spring.cache.type=redis
 ```
 
-Especifica os dados de conexão com o REDIS:
+- Os dados de conexão com o Redis
 ```
 spring.data.redis.host=127.0.0.1
 spring.data.redis.port=6379
 spring.data.redis.password=root
 spring.data.redis.timeout=2000
 ```
+
+**Dependências**
+
+Abaixo encontram-se as principais dependências utilizadas no projeto:
+- **spring-boot-starter-cache**: habilita o suporte ao cache na sua aplicação Spring.
+- **spring-boot-starter-data-redis**: utilizada para integrar o Redis à sua aplicação Spring.
+- **jackson-databind**: biblioteca responsável pela serialização e desserialização de objetos Java para JSON e vice-versa.
+
+
 
 ## DOCKER
 Para utilizar o serviço de cache iremos instanciar um container Redis no Docker, para isso execute os seguintes comandos no terminal:
